@@ -1,6 +1,7 @@
 ## INFO606-TP1
 Antonin Plard
 
+Le sujet : ![sujet](./INFO_606_TP1_2.pdf)
 
 ### 1 - Tri à bulle
 
@@ -25,3 +26,42 @@ Et même si on le parallelise, ça compléxiter est trop mauvais même divisée.
 
 ### 2 - Tri fusion
 
+#### 2.1 L'algorithme
+En langage naturel
+```
+fonction triFusion(T: tableau, deb: Nombre, fin: Nombre)
+  Si deb < fin:
+    mil = deb + (fin - deb ) / 2
+    triFusion(T, deb, mid)
+    triFusion(T, mid, deb)
+
+    fusion(T, deb,mid, fin)
+```
+
+#### 2.1 - L'opération de fusion
+
+**Question 1:**
+Implementation dans `merge_sort_1.c`
+
+**Question 2:**
+![plot_2](./fig/merge_sort_1.svg)
+
+**Question 3:**
+
+### 3 - Multithreading
+
+#### 3.1 - Utilisation de deux Threads
+
+**Question 1:**
+**Question 2:**
+
+#### 3.2 - 3.2 Thread et récursivité
+
+**Question 3:**
+**Question 4:**
+**Question 5:**
+**Question 6:**
+**Question 7:**
+
+### 4 - Flou gaussien
+**Question 1:**
