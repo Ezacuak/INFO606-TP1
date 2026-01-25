@@ -13,7 +13,7 @@ typedef struct {
 #define K_SIZE 5
 #define NB_PASS 10
 
-// noyau de convolution
+// Noyau de convolution gaussien 5×5
 float kernel[K_SIZE][K_SIZE] = {
     {1 / 256.0, 4 / 256.0, 6 / 256.0, 4 / 256.0, 1 / 256.0},
     {4 / 256.0, 16 / 256.0, 24 / 256.0, 16 / 256.0, 4 / 256.0},
@@ -21,13 +21,9 @@ float kernel[K_SIZE][K_SIZE] = {
     {4 / 256.0, 16 / 256.0, 24 / 256.0, 16 / 256.0, 4 / 256.0},
     {1 / 256.0, 4 / 256.0, 6 / 256.0, 4 / 256.0, 1 / 256.0}};
 
-/* Lit un fichier sur un flux d'entrée */
+/* Prototypes */
 void read_pgm_image(FILE *file, Image *image);
-
-/* Ecrit un fichier sur un flux */
 void write_pgm_image(FILE *file, Image *image);
-
-/* Applique un flou gaussien sur l'image */
 void gaussian_blur(Image *src, Image *trg);
 
 int main(void) {
@@ -35,22 +31,41 @@ int main(void) {
   f1 = fopen("rose.pgm", "r");
   f2 = fopen("rose_blur.pgm", "w+");
 
+  if (f1 == NULL || f2 == NULL) {
+    printf("Erreur ouverture fichier\n");
+    return 1;
+  }
+
   Image src, tmp;
 
-  // 1- init la source
+  // 1- Lire l'image source
   read_pgm_image(f1, &src);
 
-  // 2- init les images temporaires
+  // 2- Initialiser l'image temporaire
   tmp = src;
   tmp.pixels = malloc(src.width * src.height);
 
-  // 3- blur de src -> tmp
-  for (int p = 0; p < NB_PASS; p++) {
-    gaussian_blur(&src, &tmp);
+  // 3- Appliquer NB_PASS fois le flou gaussien
+  for (int pass = 0; pass < NB_PASS; pass++) {
+    if (pass % 2 == 0) {
+      gaussian_blur(&src, &tmp);
+    } else {
+      gaussian_blur(&tmp, &src);
+    }
   }
 
-  // 4- ecrit l'image resultat apres NB_PASS passage
-  write_pgm_image(f2, &tmp);
+  // 4- Écrire l'image résultat
+  if (NB_PASS % 2 == 0) {
+    write_pgm_image(f2, &src);
+  } else {
+    write_pgm_image(f2, &tmp);
+  }
+
+  // 5- Libérer la mémoire
+  free(src.pixels);
+  free(tmp.pixels);
+  fclose(f1);
+  fclose(f2);
 
   return 0;
 }
@@ -70,16 +85,21 @@ void gaussian_blur(Image *src, Image *trg) {
       for (int j = 0; j < K_SIZE; j++) {
         for (int i = 0; i < K_SIZE; i++) {
 
-          int X = iC + i - K;
-          int Y = iL + j - K;
+          int pixelX = iC + i - K; // -2, -1, 0, 1, 2
+          int pixelY = iL + j - K; // -2, -1, 0, 1, 2
 
-          int idx = Y * src->width + X;
-          sum += src->pixels[idx] * kernel[j][i];
+          int index = pixelY * src->width + pixelX;
+
+          sum += src->pixels[index] * kernel[j][i];
         }
       }
 
-      // Ecrire les pixels dans trg
-      trg->pixels[trg->width * iL + iC] = src->pixels[trg->width * iL + iC];
+      if (sum > 255)
+        sum = 255;
+      if (sum < 0)
+        sum = 0;
+
+      trg->pixels[iL * trg->width + iC] = (unsigned char)sum;
     }
   }
 }
