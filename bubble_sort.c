@@ -81,7 +81,7 @@ void *sort(void *arg) {
   int tmp;
 
   for (int i = start; i < end; i++) {
-    for (int j = 0; j < i; j++) {
+    for (int j = 0; j < end -i ; j++) {
       if (array[j+1] < array[j]) {
         tmp = array[j+1];
         array[j+1] = array[j];

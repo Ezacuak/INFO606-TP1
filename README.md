@@ -38,13 +38,15 @@ fonction triFusion(T: tableau, deb: Nombre, fin: Nombre)
     fusion(T, deb,mid, fin)
 ```
 
-#### 2.1 - L'opération de fusion
+#### 2.2 - L'opération de fusion
 
 **Question 1:**
 Implementation dans `merge_sort_1.c`
 
 **Question 2:**
-![plot_2](./fig/merge_sort_1.svg)
+![plot_2](./fig/merge_sort_no_threading.svg)
+
+On note bien que la complexiter est O(n log n).
 
 **Question 3:**
 
@@ -53,6 +55,7 @@ Implementation dans `merge_sort_1.c`
 #### 3.1 - Utilisation de deux Threads
 
 **Question 1:**
+
 **Question 2:**
 
 #### 3.2 - 3.2 Thread et récursivité
