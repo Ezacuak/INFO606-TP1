@@ -105,3 +105,24 @@ Voici donc les courbes entre elles. On voit vraiment les gains.
 
 **Question 1:**
 
+Si l'on compage la version non multi threader et la version multithreader,
+on optient un différence.
+
+Ici avec `time`.
+
+*NO THREADS*
+```
+________________________________________________________
+Executed in  807.98 millis    fish           external
+   usr time  797.35 millis    0.55 millis  796.79 millis
+   sys time    6.24 millis    1.28 millis    4.96 millis
+  
+```
+
+*4 THREADS*
+```
+________________________________________________________
+Executed in  227.36 millis    fish           external
+   usr time  845.82 millis    0.00 millis  845.82 millis
+   sys time    7.83 millis    1.87 millis    5.96 millis
+```

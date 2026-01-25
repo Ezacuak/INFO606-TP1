@@ -1,6 +1,11 @@
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#define K_SIZE 5
+#define NB_PASS 10
+#define NB_THREADS 4
 
 typedef struct {
   int width;
@@ -10,8 +15,12 @@ typedef struct {
   unsigned char *pixels; // pixmap
 } Image;
 
-#define K_SIZE 5
-#define NB_PASS 10
+typedef struct {
+  Image *src;
+  Image *trg;
+  int start_line;
+  int end_line;
+} BlurData;
 
 // Noyau de convolution gaussien 5×5
 float kernel[K_SIZE][K_SIZE] = {
