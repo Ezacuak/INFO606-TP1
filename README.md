@@ -85,10 +85,20 @@ Lorsque l'on test le programme il tourne normalement jusqu'à 2^15. A ce moment 
 On a surement créer trop de threads.
 
 **Question 5:**
+On prend en compte la taille du tableau et que l'on définie une valeur de seuil en dessous du quelle
+on passe merge non threader.
+
+voici le resulta avec un seuil à 4096.
+![plot_6](./fig/merge_sort_MT.svg)
 
 **Question 6:**
+On peut donc conclure que le merge sort multi threader est intairssant sur les tableau de grands tailles.
+D'après quelque test au moins à partire de d'un tableau de taille 4096.
 
 **Question 7:**
+
+Voici donc les courbes entre elles. On voit vraiment les gains.
+![plot_7](./fig/merge_sort_2T-4T-MT_3.svg)
 
 
 ### 4 - Flou gaussien
