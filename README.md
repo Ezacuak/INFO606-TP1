@@ -49,12 +49,19 @@ Implementation dans `merge_sort_1.c`
 On note bien que la complexiter est O(n log n).
 
 **Question 3:**
+On peut calculer l'evolution de la mémoire.
+Le tableau principale fait `n x sizeof(int) = 4n` octets.
+Puis on alloue deux tableau L et R a chaque fusion.
 
 ### 3 - Multithreading
 
 #### 3.1 - Utilisation de deux Threads
 
 **Question 1:**
+En divisant la tâche sur deux threads, on note une réelle amélioration des temps.
+On le voit bien sur le graphique.
+
+![plot_3](./fig/merge_sort_2T.svg)
 
 **Question 2:**
 

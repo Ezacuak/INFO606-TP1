@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <pthread.h>
 #include <time.h>
 
 /**
@@ -29,13 +29,24 @@ int main(void) {
   for (int i = 2; i <= (1 << 24); i *= 2) {
 
     int *T = random_array(i);
-    Data d = {T, 0, i - 1};
 
     clock_gettime(CLOCK_MONOTONIC, &start);
     // Code à mesurer ici
-    sort(&d);
 
-    // print_array(&d);
+    int mid = (i-1) / 2;
+
+    Data data_left = {T, 0, mid};
+    Data data_right = {T, mid + 1, i - 1};
+
+    pthread_t t1, t2;
+    pthread_create(&t1, NULL, sort , &data_left);
+    pthread_create(&t2, NULL, sort , &data_right);
+
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+
+    Data data = {T, 0, i - 1};
+    fusion(&data);
 
     clock_gettime(CLOCK_MONOTONIC, &end);
     // Temps d'exécution
@@ -44,6 +55,8 @@ int main(void) {
 
     // Affiche le temps d'éxécution sur la console
     printf("%d\t%.9f\n", i, elapsed);
+
+    free(T);
   }
 
   return 0;
