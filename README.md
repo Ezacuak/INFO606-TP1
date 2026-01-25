@@ -72,13 +72,26 @@ Et si l'on compare les deux on voit quant même une amélioration.
 
 ![plot_5](./fig/merge_sort_2T-4T.svg)
 
-#### 3.2 - 3.2 Thread et récursivité
+#### 3.2 Thread et récursivité
+
 
 **Question 3:**
+Pour un tableau de taille 1024 utiliserait:
+2 + 4 + 8 + ... + 2^10 soit 2048 threads !!
+
+
 **Question 4:**
+Lorsque l'on test le programme il tourne normalement jusqu'à 2^15. A ce moment la il tourn dans le vide ?!
+On a surement créer trop de threads.
+
 **Question 5:**
+
 **Question 6:**
+
 **Question 7:**
 
+
 ### 4 - Flou gaussien
+
 **Question 1:**
+
