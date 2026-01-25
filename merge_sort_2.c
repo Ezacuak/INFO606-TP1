@@ -1,6 +1,6 @@
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
 #include <time.h>
 
 /**
@@ -33,17 +33,31 @@ int main(void) {
     clock_gettime(CLOCK_MONOTONIC, &start);
     // Code à mesurer ici
 
-    int mid = (i-1) / 2;
+    int quarter1 = (i - 1) / 4;
+    int quarter2 = (i - 1) / 2;
+    int quarter3 = 3 * (i - 1) / 4;
 
-    Data data_left = {T, 0, mid};
-    Data data_right = {T, mid + 1, i - 1};
+    Data data1 = {T, 0, quarter1};
+    Data data2 = {T, quarter1 + 1, quarter2};
+    Data data3 = {T, quarter2 + 1, quarter3};
+    Data data4 = {T, quarter3 + 1, i - 1};
 
-    pthread_t t1, t2;
-    pthread_create(&t1, NULL, sort , &data_left);
-    pthread_create(&t2, NULL, sort , &data_right);
+    pthread_t t1, t2, t3, t4;
+    pthread_create(&t1, NULL, sort , &data1);
+    pthread_create(&t2, NULL, sort , &data2);
+    pthread_create(&t3, NULL, sort , &data3);
+    pthread_create(&t4, NULL, sort , &data4);
 
     pthread_join(t1, NULL);
     pthread_join(t2, NULL);
+    pthread_join(t3, NULL);
+    pthread_join(t4, NULL);
+
+    Data data_left = {T, 0, quarter2};
+    fusion(&data_left);
+
+    Data data_right = {T, quarter2 + 1, i - 1};
+    fusion(&data_right);
 
     Data data = {T, 0, i - 1};
     fusion(&data);

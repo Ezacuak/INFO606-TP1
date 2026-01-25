@@ -64,6 +64,13 @@ On le voit bien sur le graphique.
 ![plot_3](./fig/merge_sort_2T.svg)
 
 **Question 2:**
+ Avec 4 threads on obtient le graphique suivant
+![plot_4](./fig/merge_sort_4T.svg)
+
+
+Et si l'on compare les deux on voit quant même une amélioration.
+
+![plot_5](./fig/merge_sort_2T-4T.svg)
 
 #### 3.2 - 3.2 Thread et récursivité
 
